@@ -1,19 +1,23 @@
 Function payback(Invest As Double, FCF As Range) As Variant
+    Dim msgErro As String
     Dim i As Integer            'i é o contador
-    Dim acFluxo As Double       'fluxo de caixa acumulado
+    Dim acFluxo As Double
 
-    'Investimento precisa ser uma saída de caixa (negativo)
+    'somar os fluxos até cobrir o investimento
+
     If Invest >= 0 Then
-        payback = "Investimento deve ser < 0 !"
+        msgErro = "Investimento deve ser < 0 !"
+        payback = msgErro
         Exit Function
     End If
 
-    acFluxo = Invest            'começa no negativo do investimento
+    acFluxo = Invest              'começa negativo
 
     For i = 1 To FCF.Count
         acFluxo = acFluxo + FCF(i)
+
         If acFluxo >= 0 Then
-            payback = i         'período em que o payback ocorre
+            payback = i           'período em que o payback ocorre
             Exit Function
         End If
     Next i
